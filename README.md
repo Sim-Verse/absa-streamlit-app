@@ -30,6 +30,20 @@ PyTorch – Deep learning backend
 
 Pandas – Data processing
 
+
+📤 How to Use the App
+
+
+Open the Streamlit app in your browser.
+
+Upload a CSV file 
+
+Click "Run ABSA on Reviews" to perform sentiment analysis.
+
+View the results in a table and pie chart.
+
+Download the results if needed.
+
 Matplotlib – Data visualization
 
 
