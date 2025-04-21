@@ -3,7 +3,7 @@ import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 
-# Title
+# Set up page
 st.set_page_config(page_title="Aspect-Based Sentiment Analysis", layout="wide")
 st.title("🧠 Aspect-Based Sentiment Analysis (ABSA) App")
 
@@ -20,31 +20,32 @@ absa_pipeline = load_model()
 
 # Upload CSV file
 st.sidebar.header("📁 Upload your CSV")
-uploaded_file = st.sidebar.file_uploader("Choose a CSV file with a 'review' column", type=["csv"])
+uploaded_file = st.sidebar.file_uploader("Upload a CSV with 'review_text' column", type=["csv"])
 
 if uploaded_file:
     try:
         df = pd.read_csv(uploaded_file)
-        if 'review_id' not in df.columns:
-            st.error("CSV must contain a 'review' column.")
+        df.columns = df.columns.str.strip()  # remove extra spaces from column names
+
+        if 'review_text' not in df.columns:
+            st.error("❌ Your CSV must have a column named 'review_text'.")
+            st.write("📋 Available columns:", list(df.columns))
         else:
             st.success("✅ File uploaded successfully!")
-            st.write("### Sample Reviews")
+            st.write("### 📄 Sample Reviews")
             st.dataframe(df.head())
 
             if st.button("🔍 Run ABSA on Reviews"):
                 results = []
-                #for review in df['review_text']:
-                for review_text in df['reviews']:
-                    #result = absa_pipeline(review)
-                    result = absa_pipeline(review_text)
+                for review in df['review_text']:
+                    result = absa_pipeline(review)
                     results.append(result)
 
                 df['aspects_sentiment'] = results
                 st.write("### 🔎 ABSA Results")
-                st.dataframe(df[['review', 'aspects_sentiment']])
+                st.dataframe(df[['review_id', 'review_text', 'aspects_sentiment']])
 
-                # Download button
+                # Download results
                 csv = df.to_csv(index=False)
                 st.download_button(
                     label="📥 Download results as CSV",
@@ -55,4 +56,4 @@ if uploaded_file:
     except Exception as e:
         st.error(f"Error reading file: {e}")
 else:
-    st.info("👈 Upload a CSV file to get started.")
+    st.info("👈 Upload a CSV file from the sidebar.")
