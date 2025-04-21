@@ -58,10 +58,10 @@ if uploaded_file:
                 sentiment_values = list(sentiment_counts.values())
 
                 fig, ax = plt.subplots()
-                ax.bar(sentiment_names, sentiment_values, color=['green', 'yellow', 'red'])
-                ax.set_xlabel('Sentiment')
-                ax.set_ylabel('Count')
+                colors = ['green', 'gold', 'red']
+                ax.pie(sentiment_values, labels=sentiment_names, autopct='%1.1f%%', startangle=140, colors=colors)
                 ax.set_title('Sentiment Distribution of Reviews')
+                ax.axis('equal')  # Equal aspect ratio makes the pie chart a circle.
                 st.pyplot(fig)
 
                 # Download results
