@@ -34,7 +34,7 @@ if uploaded_file:
 
             if st.button("🔍 Run ABSA on Reviews"):
                 results = []
-                for review in df['review']:
+                for review in df['reviews']:
                     result = absa_pipeline(review)
                     results.append(result)
 
