@@ -7,7 +7,7 @@ from collections import Counter
 
 # Set up page
 st.set_page_config(page_title="Aspect-Based Sentiment Analysis", layout="wide")
-st.title("🧠 Aspect-Based Sentiment Analysis (ABSA) App")
+st.title("Customer Product Feedback And Reviews Analysis (ABSA) App")
 
 # Load model and tokenizer
 @st.cache_resource
