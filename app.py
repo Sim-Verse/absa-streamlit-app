@@ -25,7 +25,7 @@ uploaded_file = st.sidebar.file_uploader("Choose a CSV file with a 'review' colu
 if uploaded_file:
     try:
         df = pd.read_csv(uploaded_file)
-        if 'review' not in df.columns:
+        if 'review_id' not in df.columns:
             st.error("CSV must contain a 'review' column.")
         else:
             st.success("✅ File uploaded successfully!")
