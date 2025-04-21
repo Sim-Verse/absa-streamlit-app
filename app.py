@@ -58,7 +58,7 @@ if uploaded_file:
         st.error(f"Error reading file: {e}")
 else:
     st.info("👈 Upload a CSV file from the sidebar.")
-"""
+
 
 
 
@@ -140,4 +140,60 @@ if uploaded_file:
         st.error(f"Error reading file: {e}")
 else:
     st.info("👈 Upload a CSV file from the sidebar.")
+"""
+import streamlit as st
+import pandas as pd
+from transformers import pipeline
+import matplotlib.pyplot as plt
+
+st.set_page_config(page_title="Customer Review Sentiment Analyzer", layout="wide")
+
+# Load sentiment analysis pipeline
+@st.cache_resource
+def load_model():
+    return pipeline("sentiment-analysis")
+
+sentiment_pipeline = load_model()
+
+# Sidebar
+st.sidebar.title("📂 Upload Review CSV")
+uploaded_file = st.sidebar.file_uploader("Upload a CSV file with a 'review_text' column", type="csv")
+
+st.title("📝 Customer Review Sentiment Analyzer")
+st.markdown("Analyze product reviews and visualize their sentiment using a transformer model.")
+
+if uploaded_file is not None:
+    try:
+        df = pd.read_csv(uploaded_file)
+        if "review_text" not in df.columns:
+            st.error("CSV must contain a 'review_text' column.")
+        else:
+            # Analyze sentiment
+            st.success("Sentiment analysis in progress...")
+            with st.spinner("Analyzing reviews..."):
+                results = sentiment_pipeline(df["review_text"].tolist())
+                df["label"] = [res["label"] for res in results]
+                df["confidence"] = [round(res["score"], 3) for res in results]
+
+            st.subheader("🔍 Analyzed Reviews")
+            st.dataframe(df[["review_text", "label", "confidence"]])
+
+            # Sentiment count chart
+            st.subheader("📊 Sentiment Distribution")
+            sentiment_counts = df["label"].value_counts()
+            fig, ax = plt.subplots()
+            ax.bar(sentiment_counts.index, sentiment_counts.values, color=["tomato", "gold", "mediumseagreen"])
+            ax.set_xlabel("Sentiment")
+            ax.set_ylabel("Number of Reviews")
+            ax.set_title("Sentiment Distribution")
+            st.pyplot(fig)
+
+            # Option to download results
+            csv = df.to_csv(index=False).encode("utf-8")
+            st.download_button("⬇️ Download Results", data=csv, file_name="analyzed_reviews.csv", mime="text/csv")
+
+    except Exception as e:
+        st.error(f"Error reading file: {e}")
+else:
+    st.info("Please upload a CSV file to begin.")
 
