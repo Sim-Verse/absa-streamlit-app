@@ -36,7 +36,8 @@ if uploaded_file:
                 results = []
                 #for review in df['review_text']:
                 for review_text in df['reviews']:
-                    result = absa_pipeline(review)
+                    #result = absa_pipeline(review)
+                    result = absa_pipeline(review_text)
                     results.append(result)
 
                 df['aspects_sentiment'] = results
