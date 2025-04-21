@@ -5,6 +5,8 @@ This project is a Streamlit web application that performs Aspect-Based Sentiment
 
 
 🎯 Features
+
+
 ✅ Upload a CSV file containing customer product reviews.
 
 🔍 Automatically detects sentiments (Positive, Neutral, Negative) for various aspects in each review.
