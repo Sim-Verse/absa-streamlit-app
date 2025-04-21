@@ -1,26 +1,37 @@
 # Customer Product Feedback And Reviews Analysis (ABSA) – Streamlit App
 
-This Streamlit app performs **Aspect-Based Sentiment Analysis** on customer product reviews using a pre-trained transformer model from Hugging Face 🤗. It allows users to upload review data, analyze sentiments at the aspect level (e.g., "battery", "camera"), and visualize the distribution of sentiments (positive, negative, neutral) using interactive charts.
+This project is a Streamlit web application that performs Aspect-Based Sentiment Analysis on customer product reviews using a state-of-the-art transformer model. Instead of merely labeling a review as positive or negative, this app identifies sentiments for specific aspects (e.g., battery, screen, design) within each review, providing more granular insights for businesses and analysts.
 
-## Features
+🎯 Features
+✅ Upload a CSV file containing customer product reviews.
 
--  Analyze customer feedback at the **aspect level**
--  Uses pre-trained transformer model: `yangheng/deberta-v3-base-absa-v1.1`
--  Upload CSV files with product reviews
--  Visualize sentiment distribution with a **pie chart**
--  Download results as CSV
+🔍 Automatically detects sentiments (Positive, Neutral, Negative) for various aspects in each review.
 
-## Tech Stack
+📊 Real-time visualization of sentiment distribution using a pie chart.
 
-- Python
-- [Streamlit](https://streamlit.io/)
-- [Transformers (Hugging Face)](https://huggingface.co/)
-- PyTorch
-- Pandas
-- Matplotlib
+💾 Download the analysis results as a CSV file.
+
+⚡ Powered by Hugging Face's yangheng/deberta-v3-base-absa-v1.1 transformer model.
+
+🧰 Tech Stack
+Python 3
+
+Streamlit – For building interactive web UI
+
+Hugging Face Transformers – For pre-trained ABSA model
+
+PyTorch – Deep learning backend
+
+Pandas – Data processing
+
+Matplotlib – Data visualization
 
 ##  File Structure
-
-<pre> ## 📂 File Structure <code> absa-streamlit-app/ │ ├── app.py # Main Streamlit application ├── requirements.txt # Python dependencies ├── reviews.csv # Sample input file (optional) ├── README.md # Project documentation └── .gitignore # Git rules </code> </pre>
+absa-streamlit-app/
+│
+├── app.py                # Main Streamlit application
+├── requirements.txt      # Project dependencies
+├── reviews.csv           # Sample CSV file with reviews
+├── README.md             # Project documentation
 
 
